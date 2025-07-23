@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Tickets</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Book Your Tickets for {{ movie.title }}</h1>
+        <form method="post">
+            <label>Name:</label>
+            <input type="text" name="name" required>
+
+            <label>Choose Show Time:</label>
+            <select name="show_time" required>
+                {% for show in movie.shows %}
+                    <option value="{{ show.time }}">{{ show.time }} - ₹{{ show.price }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Number of Seats:</label>
+            <input type="number" name="seats" min="1" required>
+
+            <button type="submit" class="btn">Confirm Booking</button>
+        </form>
+    </div>
+</body>
+</html>

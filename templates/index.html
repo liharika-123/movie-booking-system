@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Booking System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <div class="container mt-5 text-center">
+    <h1 class="mb-4 title"> Welcome to Movie Ticket Booking</h1>
+
+    <button class="btn btn-info mb-4" onclick="document.getElementById('movieDetails').style.display='block'; this.style.display='none';">
+      Show Movie Details 
+    </button>
+
+    <div id="movieDetails" style="display:none;">
+      <div class="card movie-card p-4">
+        <h2 class="mb-3">{{ movie.title }}</h2>
+        <p class="lead">Available Shows:</p>
+        <ul class="list-group mb-4">
+          {% for show in movie.shows %}
+            <li class="list-group-item">
+              {{ show.label }} — ₹{{ show.price }}
+            </li>
+          {% endfor %}
+        </ul>
+
+        <h4>Book Now</h4>
+        <form action="/book" method="post" class="text-start">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name:</label>
+            <input type="text" class="form-control" name="name" required>
+          </div>
+          <div class="mb-3">
+            <label for="show_time" class="form-label">Choose Show Time:</label>
+            <select class="form-select" name="show_time" required>
+              {% for show in movie.shows %}
+                <option value="{{ show.time }}">{{ show.label }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="seats" class="form-label">Number of Seats:</label>
+            <input type="number" class="form-control" name="seats" min="1" required>
+          </div>
+          <button type="submit" class="btn btn-success"> Confirm Booking</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

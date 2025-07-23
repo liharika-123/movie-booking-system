@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movies</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Now Showing</h2>
+        <div class="movie-grid">
+            {% for movie in movies %}
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <h3>{{ movie.title }}</h3>
+                        <p>{{ movie.time }}</p>
+                    </div>
+                    <div class="card-back">
+                        <p>Book your seat now!</p>
+                        <a class="btn" href="/book/{{ movie.id }}">Book</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
